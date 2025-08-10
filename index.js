@@ -42,4 +42,4 @@ async function indexDocument(){
     });
     console.log("Document stored in Pinecone")
 }
-indexDocument();
+// indexDocument();
