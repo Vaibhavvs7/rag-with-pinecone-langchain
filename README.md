@@ -1,6 +1,6 @@
 # RAG with Pinecone & LangChain (JavaScript + Gemini) 🚀
 
-A minimal, practical guide to Retrieval-Augmented Generation (RAG) using Pinecone for vector search and LangChain (JS) to orchestrate embeddings → retrieval → Gemini-powered generation. Short, focused, and ready to slot into your repo.
+A minimal, practical guide to Retrieval-Augmented Generation (RAG) using Pinecone for vector search and LangChain (JS) to orchestrate embeddings → retrieval → Gemini-powered generation. Short, focused, and ready to adapt.
 
 ---
 
@@ -20,6 +20,50 @@ A minimal, practical guide to Retrieval-Augmented Generation (RAG) using Pinecon
 - **Google Gemini** (embeddings + text)
 - **Pinecone** (vector DB)
 - _Optional:_ S3 / local storage for raw docs
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Vaibhavvs7/rag-with-pinecone-langchain.git
+cd rag-with-pinecone-langchain
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Set up Environment Variables
+
+Create a `.env` file in the root directory and add the following variables:
+
+```env
+GEMINI_API_KEY=your_gemini_api_key
+GEMINI_EMBEDDING_MODEL=your_gemini_embedding_model
+GEMINI_TEXT_MODEL=your_gemini_text_model
+PINECONE_API_KEY=your_pinecone_api_key
+PINECONE_INDEX_NAME=your_pinecone_index_name
+```
+
+> See [🔑 Important Environment Variables](#-important-environment-variables) for details.
+
+### 4. Run the Project
+
+To start the project (adjust the entry file as needed):
+
+```bash
+node index.js
+```
+_or, if using a script defined in `package.json`:_
+
+```bash
+npm run start
+```
 
 ---
 
@@ -61,13 +105,8 @@ A minimal, practical guide to Retrieval-Augmented Generation (RAG) using Pinecon
 
 ## Tips
 
-- Keep temperature low (`0–0.3`) for factual answers.
 - Use explicit instruction: “Answer only using the context.”
 - Tune chunk size (200–800 tokens) and overlap for better retrieval.
-
----
-
-
 
 ---
 
