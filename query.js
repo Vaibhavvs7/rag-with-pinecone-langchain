@@ -9,14 +9,40 @@ import { GoogleGenAI } from "@google/genai";
 const ai = new GoogleGenAI({});
 const History = [];
 
+async function transformQuery(question){
+
+    History.push({
+        role:'user',
+        parts:[{text:question}]
+    })  
+
+    const response = await ai.models.generateContent({
+        model: "gemini-2.0-flash",
+        contents: History,
+        config: {
+        systemInstruction: `You are a query rewriting expert. Based on the provided chat history, rephrase the "Follow Up user Question" into a complete, standalone question that can be understood without the chat history.
+        Only output the rewritten question and nothing else.
+        `,
+        },
+    });
+    
+    History.pop()
+    
+    return response.text
+
+
+}
+
 async function chatting(question) {
   //convert question to vector embedding
+  const queries = await transformQuery(question);
+
   const embeddings = new GoogleGenerativeAIEmbeddings({
     apiKey: process.env.GEMINI_API_KEY,
     model: "text-embedding-004",
   });
 
-  const queryVector = await embeddings.embedQuery(question); // query vector embedding
+  const queryVector = await embeddings.embedQuery(queries); // query vector embedding
 
   // Initialize Pinecone client connection and Search Relevant document into vector DB
   const pinecone = new Pinecone();
@@ -37,7 +63,7 @@ async function chatting(question) {
   // Create a prompt for the LLM
   History.push({
     role: "user",
-    parts: [{ text: question }],
+    parts: [{ text: queries }],
   });
 
   const response = await ai.models.generateContent({
