@@ -27,6 +27,11 @@ async function chatting(question) {
 
     console.log(searchResults);
 
+    //top 10 documents are returned retrieve 10 metadata from search results
+    const context = searchResults.matches
+                   .map(match => match.metadata.text)
+                   .join("\n\n---\n\n");                //create context fro LLM
+
 
 }
 async function main(){
