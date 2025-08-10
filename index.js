@@ -1,5 +1,9 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf';
 import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters';
+import { GoogleGenerativeAIEmbeddings } from '@langchain/google-genai';
+
 
 async function indexDocument(){
     // Load the PDF document
@@ -14,6 +18,11 @@ async function indexDocument(){
     });
     const chunkedDocs = await textSplitter.splitDocuments(rawDocs);
 
+    // Create embeddings for the chunks
+    const embeddings = new GoogleGenerativeAIEmbeddings({
+        apiKey: process.env.GEMINI_API_KEY,
+        model: 'text-embedding-004',
+    });
     
     
 }
