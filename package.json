@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend": "cd backend && npm start",
+    "frontend": "cd frontend && npm start",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "install-all": "npm install --legacy-peer-deps && cd backend && npm install --legacy-peer-deps && cd ../frontend && npm install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type":"module",
+  "type": "module",
   "dependencies": {
     "@google/genai": "^1.13.0",
     "@langchain/community": "^0.3.50",
@@ -21,5 +25,8 @@
     "dotenv": "^17.2.1",
     "pdf-parse": "^1.1.1",
     "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
   }
 }
